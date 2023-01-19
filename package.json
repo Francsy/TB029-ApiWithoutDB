@@ -10,7 +10,7 @@
     "db": "cat original/users_original.json > db/users.json"
   },
   "keywords": [],
-  "author": "",
+  "author": "Fran V. Hdez.",
   "license": "ISC",
   "dependencies": {
     "@ngneat/falso": "^4.0.0",
