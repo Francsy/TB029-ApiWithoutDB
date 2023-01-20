@@ -6,7 +6,7 @@ usersRouter.get('/', usersController.getAllUsers)
 
 usersRouter.get('/total', usersController.countUsers)
 
-usersRouter.get('/:username', usersController.getUser)
+usersRouter.get('/:searchUser', usersController.getUser)
 
 
 
