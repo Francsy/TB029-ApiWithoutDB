@@ -4,13 +4,15 @@ const errorManager = require('./middlewares/errorManager')
 
 
 //MÓDULOS RUTAS
-const usersApiRouter = require('./routes/usersRoutes')
-
+const usersRouter = require('./routes/usersRoutes')
+const foodsRouter = require('./routes/foodsRoutes')
 const app = express();
 const PORT = 3000;
 
 //RUTAS
-app.use('/users', usersApiRouter)
+app.use('/users', usersRouter)
+app.use('/foods', foodsRouter)
+
 
 app.use(errorManager);
 

@@ -1,14 +1,13 @@
 const fs = require('fs')
 
 const getData = () => {
-    try{
-    const result = fs.readFileSync('db/users.json', 'utf8');
-    const dataBase = JSON.parse(result);
-    return dataBase;
+    try {
+        const result = fs.readFileSync('db/users.json', 'utf8');
+        const dataBase = JSON.parse(result);
+        return dataBase;
     } catch (error) {
         throw new Error('Error al obtener los datos de la base de datos');
     }
-    
 }
 
 const getAllUsers = (req, res, next) => {
@@ -22,14 +21,14 @@ const getAllUsers = (req, res, next) => {
 const getUser = (req, res, next) => {
     let search = decodeURIComponent(req.params.searchUser);
     let arrDB = getData();
-    if(arrDB.some(user => user.username === search)) {
+    if (arrDB.some(user => user.username === search)) {
         let firstUserByUsername = arrDB.filter(user => user.username === search)[0];
         res.status(200).json(firstUserByUsername);
-    } 
-    else if (arrDB.some(user => user.address.country === search)) { 
+    }
+    else if (arrDB.some(user => user.address.country === search)) {
         let usersByCountry = arrDB.filter(user => user.address.country === search);
         res.status(200).json(usersByCountry);
-    } else if (arrDB.some(user => user.favouritesFood.includes(search))){
+    } else if (arrDB.some(user => user.favouritesFood.includes(search))) {
         let usersByFavFood = arrDB.filter(user => user.favouritesFood.includes(search))
         res.status(200).json(usersByFavFood)
     } else {
@@ -53,12 +52,16 @@ const countUsers = (req, res, next) => {
 
 
 const usersByVehicle = (req, res, next) => {
-    const { min, max} = req.query;
-    let arrDB = getData();
-    let arrByVehicle = arrDB
-        .filter(user => user.vehicles.length >= min && user.vehicles.length <= max)
-        .map(user => ({email: user.email, username: user.username, img: user.img}))
-    res.status(200).json(arrByVehicle)
+    try {
+        const { min, max } = req.query;
+        let arrDB = getData();
+        let arrByVehicle = arrDB
+            .filter(user => user.vehicles.length >= min && user.vehicles.length <= max)
+            .map(user => ({ email: user.email, username: user.username, img: user.img }))
+        res.status(200).json(arrByVehicle)
+    } catch (error) {
+        next(error)
+    }
 }
 
 // Para probarla: vehicles?min=4&max=4
