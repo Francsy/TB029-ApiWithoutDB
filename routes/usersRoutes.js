@@ -11,9 +11,4 @@ usersRouter.get('/vehicles', usersController.usersByVehicle)
 usersRouter.get('/:searchUser', usersController.getUser)
 
 
-
-
-
-
-
 module.exports = usersRouter;

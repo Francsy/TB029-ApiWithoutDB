@@ -53,19 +53,15 @@ const countUsers = (req, res, next) => {
 
 
 const usersByVehicle = (req, res, next) => {
-    console.log(req.query)
+    const { min, max} = req.query;
+    let arrDB = getData();
+    let arrByVehicle = arrDB
+        .filter(user => user.vehicles.length >= min && user.vehicles.length <= max)
+        .map(user => ({email: user.email, username: user.username, img: user.img}))
+    res.status(200).json(arrByVehicle)
 }
-// const getUsersByCountry = (req, res, error) => {
-//     let arrUsers = getData().filter(user => user.address.country === req.params.country)
-//     if (arrUsers) {
-//         res.status(200).json(arrUsers)
-//     }
-//     else {
-//         error = new Error('User not found by country.')
-//         error.status = 404,
-//         next(error)
-//     }
-// }
+
+// Para probarla: vehicles?min=4&max=4
 
 
 module.exports = {
