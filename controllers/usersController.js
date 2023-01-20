@@ -30,12 +30,17 @@ const getUser = (req, res, next) => {
     }
 }
 
-// const countUsers = (req, res) => {
-//     const contador = getData();
-//     res.status.json
-// }
+const countUsers = (req, res, error) => {
+    try {
+        res.status(200).json({
+        total: getData().length
+    })} catch(error) {
+        next(error)
+    }
+}
 
 module.exports = {
     getAllUsers,
-    getUser
+    getUser,
+    countUsers
 }
