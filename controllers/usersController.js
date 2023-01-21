@@ -24,8 +24,7 @@ const getUser = (req, res, next) => {
     if (arrDB.some(user => user.username === search)) {
         let firstUserByUsername = arrDB.filter(user => user.username === search)[0];
         res.status(200).json(firstUserByUsername);
-    }
-    else if (arrDB.some(user => user.address.country === search)) {
+    } else if (arrDB.some(user => user.address.country === search)) {
         let usersByCountry = arrDB.filter(user => user.address.country === search);
         res.status(200).json(usersByCountry);
     } else if (arrDB.some(user => user.favouritesFood.includes(search))) {
@@ -50,17 +49,30 @@ const countUsers = (req, res, next) => {
     }
 }
 
-
 const usersByVehicle = (req, res, next) => {
-    try {
+    let arrDB = getData();
+    if ('min' in req.query && 'max' in req.query){
         const { min, max } = req.query;
-        let arrDB = getData();
-        let arrByVehicle = arrDB
+        let arrByMaxMin = arrDB
             .filter(user => user.vehicles.length >= min && user.vehicles.length <= max)
             .map(user => ({ email: user.email, username: user.username, img: user.img }))
-        res.status(200).json(arrByVehicle)
-    } catch (error) {
-        next(error)
+        res.status(200).json(arrByMaxMin)
+    } else if('fuel' in req.query || 'manufacturer' in req.query || 'model' in req.query){
+        const {fuel, manufacturer, model} = req.query;
+        const arrByVehicleData = arrDB
+            .filter(user => {
+                
+            })
+            
+
+       
+        
+        
+
+    } else {
+        let error = new Error('User not found.')
+        error.status = 404,
+            next(error)
     }
 }
 
