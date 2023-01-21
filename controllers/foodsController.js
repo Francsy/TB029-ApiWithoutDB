@@ -13,8 +13,7 @@ const getData = () => {
 const getAllFoods = (req, res, next) => {
     const arrData = getData();
     const arrFoods = arrData
-        .map(user => user.favouritesFood)
-        .flat()
+        .flatMap(user => user.favouritesFood)
         .filter((food, i, arr) => i === arr.indexOf(food))
     res.status(200).json({allFoods: arrFoods})
 }

@@ -51,32 +51,40 @@ const countUsers = (req, res, next) => {
 
 const usersByVehicle = (req, res, next) => {
     let arrDB = getData();
-    if ('min' in req.query && 'max' in req.query){
+    if (Object.keys(req.query).length === 0) { //Usuarios sin vehiculo
+        arrDB = arrDB
+            .filter(user => user.vehicles.length === 0)
+            .map(user => ({ email: user.email, username: user.username, img: user.img}))
+    } else if ('min' in req.query && 'max' in req.query) { //Usuarios filtrados por cantidad de vehiculos
         const { min, max } = req.query;
-        let arrByMaxMin = arrDB
+        arrDB = arrDB
             .filter(user => user.vehicles.length >= min && user.vehicles.length <= max)
-            .map(user => ({ email: user.email, username: user.username, img: user.img }))
-        res.status(200).json(arrByMaxMin)
-    } else if('fuel' in req.query || 'manufacturer' in req.query || 'model' in req.query){
-        const {fuel, manufacturer, model} = req.query;
-        const arrByVehicleData = arrDB
-            .filter(user => {
-                
-            })
-            
-
-       
-        
-        
-
+    } else if ('fuel' in req.query || 'manufacturer' in req.query || 'model' in req.query) { //Usuarios filtrados por detalles de los vehiculos
+        const { fuel, manufacturer, model } = req.query;
+        if (fuel) {
+            arrDB = arrDB
+                .filter(user => user.vehicles.some(vehicle => vehicle.fuel === fuel))
+        }
+        if (manufacturer) {
+            arrDB = arrDB
+                .filter(user => user.vehicles.some(vehicle => vehicle.manufacturer === manufacturer))
+        }
+        if (model) {
+            arrDB = arrDB
+                .filter(user => user.vehicles.some(vehicle => vehicle.model === model))
+        }
     } else {
         let error = new Error('User not found.')
         error.status = 404,
-            next(error)
+            next(error);
+            return;
     }
+    usersFiltered = arrDB.map(user => ({ email: user.email, username: user.username, img: user.img }))
+    res.status(200).json(usersFiltered)
 }
 
 // Para probarla: vehicles?min=4&max=4
+// Para probarla: http://localhost:3000/users/vehicles?manufacturer=Hyundai&model=A4
 
 
 module.exports = {
