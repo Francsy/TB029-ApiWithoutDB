@@ -10,5 +10,7 @@ usersRouter.get('/vehicles', usersController.usersByVehicle)
 
 usersRouter.get('/:searchUser', usersController.getUser)
 
+usersRouter.post('/', usersController.createUser)
+
 
 module.exports = usersRouter;

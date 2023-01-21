@@ -11,6 +11,8 @@ const vehiclesRouter = require('./routes/vehiclesRoutes')
 const app = express();
 const PORT = 3000;
 
+app.use(express.json()) //Habilita los datos a recibir
+
 //RUTAS
 app.use('/users', usersRouter)
 app.use('/foods', foodsRouter)

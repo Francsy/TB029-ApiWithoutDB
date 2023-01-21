@@ -87,9 +87,16 @@ const usersByVehicle = (req, res, next) => {
 // Para probarla: http://localhost:3000/users/vehicles?manufacturer=Hyundai&model=A4
 
 
+const createUser = (req, res, next) => {
+    console.log(req.body)
+    res.status(201).json({message: `Usuario creado`})
+}
+
+
 module.exports = {
     getAllUsers,
     getUser,
     countUsers,
-    usersByVehicle
+    usersByVehicle,
+    createUser
 }
