@@ -1,4 +1,5 @@
-const fs = require('fs')
+const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 
 const getData = () => {
     try {
@@ -54,7 +55,7 @@ const usersByVehicle = (req, res, next) => {
     if (Object.keys(req.query).length === 0) { //Usuarios sin vehiculo
         arrDB = arrDB
             .filter(user => user.vehicles.length === 0)
-            .map(user => ({ email: user.email, username: user.username, img: user.img}))
+            .map(user => ({ email: user.email, username: user.username, img: user.img }))
     } else if ('min' in req.query && 'max' in req.query) { //Usuarios filtrados por cantidad de vehiculos
         const { min, max } = req.query;
         arrDB = arrDB
@@ -77,7 +78,7 @@ const usersByVehicle = (req, res, next) => {
         let error = new Error('User not found.')
         error.status = 404,
             next(error);
-            return;
+        return;
     }
     usersFiltered = arrDB.map(user => ({ email: user.email, username: user.username, img: user.img }))
     res.status(200).json(usersFiltered)
@@ -88,9 +89,36 @@ const usersByVehicle = (req, res, next) => {
 
 
 const createUser = (req, res, next) => {
-    console.log(req.body)
-    res.status(201).json({message: `Usuario creado`})
+    const { email, firstName, lastName, username } = req.body;
+    if (email && firstName && lastName && username) {
+        const newUser = {
+            id: uuidv4(),
+            email,
+            firstName,
+            lastName,
+            phone: req.body.phone || '',
+            img: req.body.img || '',
+            username,
+            address: req.body.address || {},
+            vehicles: req.body.vehicles || [],
+            favouritesFood: req.body.favouritesFood || [],
+            deleted: false
+        }
+        let dataBase = getData();
+        dataBase.push(newUser);
+        fs.writeFile('db/users.json', JSON.stringify(dataBase), (err, data) => {
+            if (err) {
+                next(err);
+            } else {
+                console.log('Usuario guardado')
+                res.status(201).json({ success: true, message: `Usuario creado` })
+            }
+        })
+    } else {
+        res.status(400).json({ success: false, message: "Datos incompletos" })
+    }
 }
+
 
 
 module.exports = {

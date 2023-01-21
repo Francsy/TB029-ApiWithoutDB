@@ -4,5 +4,4 @@ const foodsController = require('../controllers/foodsController')
 
 foodsRouter.get('/', foodsController.getAllFoods)
 
-
 module.exports = foodsRouter;
