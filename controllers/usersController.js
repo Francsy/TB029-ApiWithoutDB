@@ -202,6 +202,27 @@ const addFoods = (req, res, next) => {
     }
 }
 
+const hideUser = (req, res, next) => {
+    const { username } = req.params;
+    const { email } = req.body;
+    let dataBase = getData();
+    if (Object.keys(req.body).length === 0 || !email) {
+        res.status(422).json({ success: false, message: 'Datos proporcionados incorrectos.' })
+    } else if (dataBase.some(user => user.username === username && user.email === email)) {
+        let userToHide = dataBase.find(user => user.username === username);
+        userToHide.deleted = true;
+        fs.writeFile('db/users.json', JSON.stringify(dataBase), (err, data) => {
+            if (err) {
+                next(err);
+            } else {
+                res.status(200).json({ success: true, message: `${username} con email: ${email} fue ocultado con éxito` })
+            }
+        })
+    } else {
+        res.status(404).json({ success: false, message: `El usernane ${username} y/o el email ${email} no coincide con ningún usuario.` })
+    }
+}
+
 
 module.exports = {
     getAllUsers,
@@ -211,5 +232,7 @@ module.exports = {
     createUser,
     updateUser,
     addVehicles,
-    addFoods
+    addFoods,
+    hideUser,
+    
 }
