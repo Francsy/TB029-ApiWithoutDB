@@ -13,6 +13,10 @@ const PORT = 3000;
 
 app.use(express.json()) //Habilita los datos a recibir
 
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
 //RUTAS
 app.use('/users', usersRouter)
 app.use('/foods', foodsRouter)
