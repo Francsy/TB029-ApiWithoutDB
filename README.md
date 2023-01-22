@@ -1,4 +1,197 @@
-## EJERCICIO
+## ENDPOINTS:
+
+<!-- [Pincha aquí para probar los endpoints]() -->
+
+### `/users (GET)`
+
+Devuelve todos los usuarios públicos (No devuelve usuarios ocultos)
+
+- Prueba a poner en el navegador `/users'
+
+### `/users/:username (GET)`
+
+Devuelve un único usuario en base al `username` (si hubiera varios, devuelve solo el primero)
+
+- Prueba: `/users/picklerick`
+
+### `/users/total (GET)`
+
+Devuelve la cantidad total de usuarios públicos.
+
+- Prueba: `/users/total`
+
+
+### `/users/:country (GET)`
+
+Devuelve usuarios de un país en concreto (`country`).
+
+- Prueba: `/users/Colombia`
+
+### `/users/:food (GET)`
+
+Devuelve a todos los usuarios con una comida favorita en concreto pasada a través del enlace en `food`.
+
+- Prueba: `/users/Ramen`
+
+### `/users/vehicles (GET)`
+
+Devuelve el email, username e imagen de los usuarios seleccionados:
+
+- Si no se pasan detalles devuelve los usuarios sin vehículos.
+
+    Prueba: `/users/vehicles`
+
+- Si se especifica que tengan un `min` y un `max` de vehículos, se devuelven los usuarios con dicha cantidad de vehículos.
+
+    Prueba: `/users/vehicles?min=2&max=3`
+
+- Si se especifica `fuel`, `manufacturer` y/o `model`, se filtran los usuarios que corresponden a los parámetros especificados. Si solo se especifica uno de los tres parámetros, solo se filtra a través del mismo.
+
+    Prueba: `/users/vehicles?manufacturer=Hyundai&model=A4`
+
+
+## `/foods (GET)`
+
+Devuelve el listado completo de las comidas registradas únicas en la base de datos. 
+
+- Prueba: `/foods`
+
+
+## `/vehicles (GET)`
+
+Devuelve el listado completo los vehiculos únicos totales.
+
+- Si no se especifica nada devuelve la lista completa.
+
+    Prueba: `/vehicles`
+- Si se especifica el tipo de combustible, devuelve la lista en base al tipo de combustible.
+    
+    Prueba: `/vehicles?fuel=Electric`
+
+
+## `/users (POST)`
+
+Crea un usuario nuevo. Como mínimo debes incluir `email`, `firstName`, `lastName` y `username`.
+
+- Puedes usar el siguiente ejemplo, `POST` en /users con la siguiente información:
+
+    `{
+    "email": "mortysmith@C-137.dimension",
+    "firstName": "Morty",
+    "lastName": "Smith",
+    "username": "mortysmith"
+}`
+
+    (Puedes hacer `GET` en `/users/` para ver el resultado e ir al final de la lista para ver el resultado)
+
+## `/users/:username (PUT)`
+
+Actualiza los datos del usuario (menos id, vehiculos, comidas y el campo deleted).
+
+- Prueba a actualizar el usuario que acabas de crear:
+
+    `PUT` en /users/mortysmith con la siguiente información:
+
+    `{
+    "phone": "610101010",
+    "img": "https://static.wikia.nocookie.net/rickandmorty/images/e/ee/Morty501.png/revision/latest?cb=20210827150137E",
+    "address": {
+"street": "671 Kuphal Mountain",
+"city": "Seattle",
+"zipCode": "98101",
+"county": "Washington State",
+"country": "USA",
+"planet": "Earth"}
+}`
+
+    (Puedes hacer `GET` en `/users/mortysmith` para ver los cambios)
+
+## `/users/:username/vehicles (PUT)`
+
+Puedes añadir vehículos a los usuarios (mínimo uno). Si no pones ninguno, no pasará nada.
+
+- Prueba a añadir vehículos al usuario creado:
+
+    `PUT` en `/users/mortysmith/vehicles` con la siguiente información:
+
+    `[
+{
+"fuel": "Microverse-based powercell",
+"manufacturer": "Rick and Morty Adventures",
+"model": "Version 3.0 (Spare Morty included)",
+"car": "Space Cruiser",
+"type": "Spaceship"
+},
+{
+"fuel": "Flux capacitor",
+"manufacturer": "DMC",
+"model": "DMC-12.",
+"car": "DeLorean",
+"type": "Sport travel-time car"
+}
+]`
+
+    (Puedes hacer `GET` en `/users/mortysmith` para ver los cambios)
+
+
+## `/users/:username/foods (PUT)`
+
+Puedes añadir alimentos a la lista de comidas favoritas del usuario. Si no envias nada, se eliminarán todas las comidas actuales.
+
+- Prueba a añadir comidas al usuario creado:
+
+    `PUT` en `/users/mortysmith/foods` con la siguiente información:
+
+    `[
+"Szechuan Chicken McNugget Sauce",
+"Yummy' Yums",
+"Eyeholes",
+"Strawberry Smiggles."
+]`
+
+    (Puedes hacer `GET` en `/users/mortysmith` para ver los cambios)
+
+## `/users/:username/hide (PUT)`
+
+Cambia la visibilidad del usuario para que no aparezca si se busca. Además del username en el enlace, hay que enviar el `email` que coincida con dicho usuario, de otra forma devolverá error.
+
+ - Prueba a poner a ocultar el usuario borrado:
+
+    `PUT` en `/users/mortysmith/hide` con el email:
+
+    `{
+    "email": "mortysmith@C-137.dimension"
+    }`
+
+    (Puedes hacer GET en /users/mortysmith para ver que ahora el usuario no es encontrado)
+
+
+## `/users/:username (DELETE)`
+
+Elimina definitivamente el usuario de la lista. Envia el `email` del usuario. IMPORTANTE! Solo se puede borrar un usuario si anteriormente se ha ocultado (es decir, el campo deleted está en true), si no devolverá un error.
+
+- Para intentar enviar un usuario que no se puede borrar:
+
+    `DELETE` en /users/Matt_Scholz58 con el email:
+
+    `{
+    "email": "mattscholz@bellsouth.name"
+}`
+
+- Para eliminar definitivamente un usuario que sí está oculto:
+
+    `DELETE` en /users/mortysmith con el email:
+
+    `{
+    "email": "mortysmith@C-137.dimension"
+}`
+
+
+<br>
+<br>
+
+
+## EJERCICIO ORIGINAL:
 
 ### Antes de comenzar...
 

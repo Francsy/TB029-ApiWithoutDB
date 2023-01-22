@@ -4,13 +4,20 @@ const errorManager = require('./middlewares/errorManager')
 
 
 //MÓDULOS RUTAS
-const usersApiRouter = require('./routes/usersRoutes')
+const usersRouter = require('./routes/usersRoutes')
+const foodsRouter = require('./routes/foodsRoutes')
+const vehiclesRouter = require('./routes/vehiclesRoutes')
 
 const app = express();
 const PORT = 3000;
 
+app.use(express.json()) //Habilita los datos a recibir
+
 //RUTAS
-app.use('/users', usersApiRouter)
+app.use('/users', usersRouter)
+app.use('/foods', foodsRouter)
+app.use('/vehicles', vehiclesRouter)
+
 
 app.use(errorManager);
 
