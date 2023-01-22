@@ -136,6 +136,7 @@ const updateUser = (req, res, next) => {
                 user.firstName = firstName || user.firstName;
                 user.lastName = lastName || user.lastName;
                 user.phone = phone || user.phone;
+                user.img = img || user.img;
                 user.username = username || user.username;
                 user.address = address || user.address;
                 return user;
