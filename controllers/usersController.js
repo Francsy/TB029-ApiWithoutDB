@@ -128,7 +128,6 @@ const updateUser = (req, res, next) => {
         res.status(404).json({ success: false, message: `${req.params.username} no existe.` })
     } else {
         const { email, firstName, lastName, phone, img, username, address } = req.body;
-        dataBase[dataBase.indexOf(username)]
         const updatedDB = dataBase.map(user => {
             if (user.username === paramUsername) {
                 user.email = email || user.email;
@@ -152,6 +151,32 @@ const updateUser = (req, res, next) => {
     }
 }
 
+const addVehicles = (req, res, next) => {
+    const { username } = req.params;
+    const vehiclesList = req.body;
+    let dataBase = getData();
+    if (vehiclesList.length === 0 || Object.keys(vehiclesList).length === 0) {
+        res.status(422).json({ success: false, message: 'Datos proporcionados incompletos.' })
+    } else if (!dataBase.find(user => user.username === username)) {
+        res.status(404).json({ success: false, message: `${req.params.username} no existe.` })
+    } else {
+        const updatedDB = dataBase.map(user => {
+            if (user.username === username) {
+                user.vehicles = user.vehicles.concat(vehiclesList);
+                return user;
+            }
+            return user;
+        })
+        fs.writeFile('db/users.json', JSON.stringify(updatedDB), (err, data) => {
+            if (err) {
+                next(err);
+            } else {
+                res.status(200).json({ success: true, message: `Vehiculos añadidos` })
+            }
+        })
+    }
+}
+
 
 module.exports = {
     getAllUsers,
@@ -159,5 +184,6 @@ module.exports = {
     countUsers,
     usersByVehicle,
     createUser,
-    updateUser
+    updateUser,
+    addVehicles
 }

@@ -16,6 +16,8 @@ usersRouter.post('/', usersController.createUser)
 
 usersRouter.put('/:username', usersController.updateUser)
 
+usersRouter.put('/:username/vehicles', usersController.addVehicles)
+
 
 
 module.exports = usersRouter;
