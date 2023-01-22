@@ -119,6 +119,38 @@ const createUser = (req, res, next) => {
     }
 }
 
+const updateUser = (req, res, next) => {
+    const paramUsername = req.params.username;
+    let dataBase = getData();
+    if (Object.keys(req.body).length === 0) {
+        res.status(422).json({ success: false, message: 'Datos proporcionados incompletos.' })
+    } else if (!dataBase.find(user => user.username === paramUsername)) {
+        res.status(404).json({ success: false, message: `${req.params.username} no existe.` })
+    } else {
+        const { email, firstName, lastName, phone, img, username, address } = req.body;
+        dataBase[dataBase.indexOf(username)]
+        const updatedDB = dataBase.map(user => {
+            if (user.username === paramUsername) {
+                user.email = email || user.email;
+                user.firstName = firstName || user.firstName;
+                user.lastName = lastName || user.lastName;
+                user.phone = phone || user.phone;
+                user.username = username || user.username;
+                user.address = address || user.address;
+                return user;
+            }
+            return user;
+        })
+        fs.writeFile('db/users.json', JSON.stringify(updatedDB), (err, data) => {
+            if (err) {
+                next(err);
+            } else {
+                console.log('Usuario actualizado')
+                res.status(200).json({ success: true, message: `Usuario actualizado` })
+            }
+        })
+    }
+}
 
 
 module.exports = {
@@ -126,5 +158,6 @@ module.exports = {
     getUser,
     countUsers,
     usersByVehicle,
-    createUser
+    createUser,
+    updateUser
 }
