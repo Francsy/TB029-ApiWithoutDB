@@ -18,6 +18,8 @@ usersRouter.put('/:username', usersController.updateUser)
 
 usersRouter.put('/:username/vehicles', usersController.addVehicles)
 
+usersRouter.put('/:username/foods', usersController.addFoods)
+
 
 
 module.exports = usersRouter;

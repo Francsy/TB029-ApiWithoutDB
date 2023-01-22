@@ -177,6 +177,31 @@ const addVehicles = (req, res, next) => {
     }
 }
 
+const addFoods = (req, res, next) => {
+    const { username } = req.params;
+    const foodsList = req.body;
+    let dataBase = getData();
+    if (!dataBase.find(user => user.username === username)) {
+        res.status(404).json({ success: false, message: `${req.params.username} no existe.` })
+    } else {
+        let userToChange = dataBase.find(user => user.username === username)
+        let foodsDeleted = false
+        if (foodsList.length === 0 || Object.keys(foodsList).length === 0) {
+            userToChange.favouritesFood = [];
+            foodsDeleted = true;
+        } else {
+            userToChange.favouritesFood = userToChange.favouritesFood.concat(foodsList)
+        }
+        fs.writeFile('db/users.json', JSON.stringify(dataBase), (err, data) => {
+            if (err) {
+                next(err);
+            } else {
+                foodsDeleted ? res.status(200).json({ success: true, message: `Lista de comidas eliminada` }) : res.status(200).json({ success: true, message: `Lista de comidas añadidas` })
+            }
+        })
+    }
+}
+
 
 module.exports = {
     getAllUsers,
@@ -185,5 +210,6 @@ module.exports = {
     usersByVehicle,
     createUser,
     updateUser,
-    addVehicles
+    addVehicles,
+    addFoods
 }
