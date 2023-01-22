@@ -10,9 +10,17 @@
     "create": "node scripts/create.js",
     "db": "cat original/users_original.json > db/users.json"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Francsy/TB029-ApiWithoutDB.git"
+  },
   "keywords": [],
   "author": "Fran V. Hdez.",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Francsy/TB029-ApiWithoutDB/issues"
+  },
+  "homepage": "https://github.com/Francsy/TB029-ApiWithoutDB#readme",
   "dependencies": {
     "@ngneat/falso": "^4.0.0",
     "express": "^4.17.3",
