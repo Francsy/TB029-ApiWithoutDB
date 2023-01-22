@@ -1,8 +1,8 @@
 const fs = require('fs')
 
-const getData = async () => {
+const getData = () => {
     try {
-        const result = await fs.promises.readFile('db/users.json', 'utf8');
+        const result = fs.readFileSync('db/users.json', 'utf8');
         const dataBase = JSON.parse(result);
         return dataBase;
     } catch (error) {
@@ -10,8 +10,8 @@ const getData = async () => {
     }
 }
 
-const getAllFoods = async (req, res, next) => {
-    const arrData = await getData();
+const getAllFoods = (req, res, next) => {
+    const arrData = getData();
     const arrFoods = arrData
         .flatMap(user => user.favouritesFood)
         .filter((food, i, arr) => i === arr.indexOf(food))
