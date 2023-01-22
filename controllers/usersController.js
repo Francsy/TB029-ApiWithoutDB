@@ -13,7 +13,8 @@ const getData = () => {
 
 const getAllUsers = (req, res, next) => {
     try {
-        res.status(200).json(getData())
+        let dataBase = getData().filter(user => user.deleted === false)
+        res.status(200).json(dataBase)
     } catch (error) {
         next(error)
     }
@@ -21,7 +22,7 @@ const getAllUsers = (req, res, next) => {
 
 const getUser = (req, res, next) => {
     let search = decodeURIComponent(req.params.searchUser);
-    let arrDB = getData();
+    let arrDB = getData().filter(user => user.deleted === false);
     if (arrDB.some(user => user.username === search)) {
         let firstUserByUsername = arrDB.filter(user => user.username === search)[0];
         res.status(200).json(firstUserByUsername);
@@ -43,7 +44,7 @@ const getUser = (req, res, next) => {
 const countUsers = (req, res, next) => {
     try {
         res.status(200).json({
-            total: getData().length
+            total: getData().filter(user => user.deleted === false).length
         })
     } catch (error) {
         next(error)
@@ -51,7 +52,7 @@ const countUsers = (req, res, next) => {
 }
 
 const usersByVehicle = (req, res, next) => {
-    let arrDB = getData();
+    let arrDB = getData().filter(user => user.deleted === false);
     if (Object.keys(req.query).length === 0) { //Usuarios sin vehiculo
         arrDB = arrDB
             .filter(user => user.vehicles.length === 0)
@@ -233,6 +234,5 @@ module.exports = {
     updateUser,
     addVehicles,
     addFoods,
-    hideUser,
-    
+    hideUser
 }
