@@ -22,7 +22,7 @@ usersRouter.put('/:username/foods', usersController.addFoods)
 
 usersRouter.put('/:username/hide', usersController.hideUser)
 
-// usersRouter.delete('/:username')
+usersRouter.delete('/:username', usersController.deleteUser)
 
 
 module.exports = usersRouter;
