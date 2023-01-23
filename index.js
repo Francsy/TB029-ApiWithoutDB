@@ -14,7 +14,7 @@ const PORT = 3000;
 app.use(express.json()) //Habilita los datos a recibir
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Bienvenido a la base de datos!')
 })
 
 //RUTAS

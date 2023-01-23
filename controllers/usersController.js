@@ -3,7 +3,7 @@ const { get } = require('http');
 const { v4: uuidv4 } = require('uuid');
 
 const path = require('path')
-const dbPath = path.join(__dirname, '../db', 'users.json')
+const dbPath = path.join(__dirname, '..', 'db', 'users.json')
 
 const getData = () => {
     try {
@@ -111,7 +111,7 @@ const createUser = (req, res, next) => {
         }
         let dataBase = getData();
         dataBase.push(newUser);
-        fs.writeFile('db/users.json', JSON.stringify(dataBase), (err, data) => {
+        fs.writeFile(dbPath, JSON.stringify(dataBase), (err, data) => {
             if (err) {
                 next(err);
             } else {
@@ -146,7 +146,7 @@ const updateUser = (req, res, next) => {
             }
             return user;
         })
-        fs.writeFile('db/users.json', JSON.stringify(updatedDB), (err, data) => {
+        fs.writeFile(dbPath, JSON.stringify(updatedDB), (err, data) => {
             if (err) {
                 next(err);
             } else {
@@ -173,7 +173,7 @@ const addVehicles = (req, res, next) => {
             }
             return user;
         })
-        fs.writeFile('db/users.json', JSON.stringify(updatedDB), (err, data) => {
+        fs.writeFile(dbPath, JSON.stringify(updatedDB), (err, data) => {
             if (err) {
                 next(err);
             } else {
@@ -198,7 +198,7 @@ const addFoods = (req, res, next) => {
         } else {
             userToChange.favouritesFood = userToChange.favouritesFood.concat(foodsList)
         }
-        fs.writeFile('db/users.json', JSON.stringify(dataBase), (err, data) => {
+        fs.writeFile(dbPath, JSON.stringify(dataBase), (err, data) => {
             if (err) {
                 next(err);
             } else {
@@ -217,7 +217,7 @@ const hideUser = (req, res, next) => {
     } else if (dataBase.some(user => user.username === username && user.email === email)) {
         let userToHide = dataBase.find(user => user.username === username);
         userToHide.deleted = true;
-        fs.writeFile('db/users.json', JSON.stringify(dataBase), (err, data) => {
+        fs.writeFile(dbPath, JSON.stringify(dataBase), (err, data) => {
             if (err) {
                 next(err);
             } else {
@@ -244,7 +244,7 @@ const deleteUser = (req, res, next) => {
         } else {
             let userIndex = dataBase.findIndex(user => user.username === username)
             dataBase.splice(userIndex, 1)
-            fs.writeFile('db/users.json', JSON.stringify(dataBase), (err, data) => {
+            fs.writeFile(dbPath, JSON.stringify(dataBase), (err, data) => {
                 if (err) {
                     next(err);
                 } else {
