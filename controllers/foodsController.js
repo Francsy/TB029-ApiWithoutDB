@@ -1,8 +1,13 @@
 const fs = require('fs')
 
+
+const path = require('path')
+const dbPath = path.join(__dirname, '../db', 'users.json')
+
+
 const getData = () => {
     try {
-        const result = fs.readFileSync('db/users.json', 'utf8');
+        const result = fs.readFileSync(dbPath, 'utf8');
         const dataBase = JSON.parse(result);
         return dataBase;
     } catch (error) {
