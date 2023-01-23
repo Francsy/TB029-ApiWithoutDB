@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const path = require('path')
-const dbPath = path.join(__dirname, '../db', 'users.json')
+const dbPath = path.join(__dirname, 'db', 'users.json')
 
 const getVehicles = (req, res, next) =>  {
     let dBJson = fs.readFileSync(dbPath, 'utf8')
