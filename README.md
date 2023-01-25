@@ -5,6 +5,7 @@
 [¡Pincha aquí para probar las rutas!](https://api-without-db.vercel.app/) 
 
 <br>
+
 ### `/users (GET)`
 
 Devuelve todos los usuarios públicos (No devuelve usuarios ocultos)
