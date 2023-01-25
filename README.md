@@ -73,7 +73,8 @@ Devuelve el email, username e imagen de los usuarios seleccionados:
     Prueba: `/users/vehicles?manufacturer=Hyundai&model=A4`
 
 <br>
-## `/foods (GET)`
+
+### `/foods (GET)`
 <br>
 
 Devuelve el listado completo de las comidas registradas únicas en la base de datos. 
@@ -82,7 +83,7 @@ Devuelve el listado completo de las comidas registradas únicas en la base de da
 
 <br>
 
-## `/vehicles (GET)`
+### `/vehicles (GET)`
 <br>
 
 Devuelve el listado completo los vehiculos únicos totales.
@@ -96,7 +97,7 @@ Devuelve el listado completo los vehiculos únicos totales.
 
 <br>
 
-## `/users (POST)`
+### `/users (POST)`
 
 <br>
 
@@ -118,7 +119,7 @@ Crea un usuario nuevo. Como mínimo debes incluir `email`, `firstName`, `lastNam
 
 <br>
 
-## `/users/:username (PUT)`
+### `/users/:username (PUT)`
 <br>
 
 Actualiza los datos del usuario (menos id, vehiculos, comidas y el campo deleted).
@@ -146,7 +147,7 @@ Actualiza los datos del usuario (menos id, vehiculos, comidas y el campo deleted
 
 <br>
 
-## `/users/:username/vehicles (PUT)`
+### `/users/:username/vehicles (PUT)`
 <br>
 
 Puedes añadir vehículos a los usuarios (mínimo uno). Si no pones ninguno, no pasará nada.
@@ -177,7 +178,7 @@ Puedes añadir vehículos a los usuarios (mínimo uno). Si no pones ninguno, no 
 
 <br>
 
-## `/users/:username/foods (PUT)`
+### `/users/:username/foods (PUT)`
 <br>
 
 Puedes añadir alimentos a la lista de comidas favoritas del usuario. Si no envias nada, se eliminarán todas las comidas actuales.
@@ -198,7 +199,7 @@ Puedes añadir alimentos a la lista de comidas favoritas del usuario. Si no envi
 
 <br>
 
-## `/users/:username/hide (PUT)`
+### `/users/:username/hide (PUT)`
 
 <br>
 
@@ -216,7 +217,7 @@ Cambia la visibilidad del usuario para que no aparezca si se busca. Además del 
 
 <br>
 
-## `/users/:username (DELETE)`
+### `/users/:username (DELETE)`
 
 <br>
 
