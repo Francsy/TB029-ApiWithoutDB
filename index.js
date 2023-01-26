@@ -7,6 +7,7 @@ const errorManager = require('./middlewares/errorManager')
 const usersRouter = require('./routes/usersRoutes')
 const foodsRouter = require('./routes/foodsRoutes')
 const vehiclesRouter = require('./routes/vehiclesRoutes')
+const dataRouter = require('./routes/dataWriterRoutes')
 
 const app = express();
 const PORT = 3000;
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 app.use('/users', usersRouter)
 app.use('/foods', foodsRouter)
 app.use('/vehicles', vehiclesRouter)
+app.use('/data', dataRouter)
 
 
 app.use(errorManager);

@@ -2,12 +2,12 @@ const fs = require('fs');
 const { get } = require('http');
 const { v4: uuidv4 } = require('uuid');
 
-const path = require('path')
-const dbPath = path.join(__dirname, '..', 'db', 'users.json')
+// const path = require('path')
+// const "/tmp/users.json" = path.join(__dirname, '..', 'db', 'users.json')
 
 const getData = () => {
     try {
-        const result = fs.readFileSync(dbPath, 'utf8');
+        const result = fs.readFileSync("/tmp/users.json", 'utf8');
         const dataBase = JSON.parse(result);
         return dataBase;
     } catch (error) {
@@ -111,7 +111,7 @@ const createUser = (req, res, next) => {
         }
         let dataBase = getData();
         dataBase.push(newUser);
-        fs.writeFile(dbPath, JSON.stringify(dataBase), (err, data) => {
+        fs.writeFile("/tmp/users.json", JSON.stringify(dataBase), (err, data) => {
             if (err) {
                 next(err);
             } else {
@@ -146,7 +146,7 @@ const updateUser = (req, res, next) => {
             }
             return user;
         })
-        fs.writeFile(dbPath, JSON.stringify(updatedDB), (err, data) => {
+        fs.writeFile("/tmp/users.json", JSON.stringify(updatedDB), (err, data) => {
             if (err) {
                 next(err);
             } else {
@@ -173,7 +173,7 @@ const addVehicles = (req, res, next) => {
             }
             return user;
         })
-        fs.writeFile(dbPath, JSON.stringify(updatedDB), (err, data) => {
+        fs.writeFile("/tmp/users.json", JSON.stringify(updatedDB), (err, data) => {
             if (err) {
                 next(err);
             } else {
@@ -198,7 +198,7 @@ const addFoods = (req, res, next) => {
         } else {
             userToChange.favouritesFood = userToChange.favouritesFood.concat(foodsList)
         }
-        fs.writeFile(dbPath, JSON.stringify(dataBase), (err, data) => {
+        fs.writeFile("/tmp/users.json", JSON.stringify(dataBase), (err, data) => {
             if (err) {
                 next(err);
             } else {
@@ -217,7 +217,7 @@ const hideUser = (req, res, next) => {
     } else if (dataBase.some(user => user.username === username && user.email === email)) {
         let userToHide = dataBase.find(user => user.username === username);
         userToHide.deleted = true;
-        fs.writeFile(dbPath, JSON.stringify(dataBase), (err, data) => {
+        fs.writeFile("/tmp/users.json", JSON.stringify(dataBase), (err, data) => {
             if (err) {
                 next(err);
             } else {
@@ -235,16 +235,16 @@ const deleteUser = (req, res, next) => {
     let dataBase = getData();
     if (Object.keys(req.body).length === 0 || !email) {
         res.status(422).json({ success: false, message: 'Datos proporcionados incorrectos.' })
-    } else if (!dataBase.some(user => user.username === username && user.email === email)){
+    } else if (!dataBase.some(user => user.username === username && user.email === email)) {
         res.status(404).json({ success: false, message: `El usernane ${username} y/o el email ${email} no coincide con ningún usuario.` })
     } else {
         let userToDelete = dataBase.find(user => user.username === username);
-        if(userToDelete.deleted === false) {
-            res.status(409).json({ success: false, messaage: `El usuario ${username} no puede ser eliminado`})
+        if (userToDelete.deleted === false) {
+            res.status(409).json({ success: false, messaage: `El usuario ${username} no puede ser eliminado` })
         } else {
             let userIndex = dataBase.findIndex(user => user.username === username)
             dataBase.splice(userIndex, 1)
-            fs.writeFile(dbPath, JSON.stringify(dataBase), (err, data) => {
+            fs.writeFile("/tmp/users.json", JSON.stringify(dataBase), (err, data) => {
                 if (err) {
                     next(err);
                 } else {

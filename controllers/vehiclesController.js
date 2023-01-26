@@ -1,10 +1,10 @@
 const fs = require('fs');
 
-const path = require('path')
-const dbPath = path.join(__dirname, '..', 'db', 'users.json')
+// const path = require('path')
+// const dbPath = path.join(__dirname, '..', 'db', 'users.json')
 
 const getVehicles = (req, res, next) =>  {
-    let dBJson = fs.readFileSync(dbPath, 'utf8')
+    let dBJson = fs.readFileSync("/tmp/users.json", 'utf8')
     let dataBase = JSON.parse(dBJson)
     let arrVehicles = dataBase.flatMap(user => user.vehicles)
     if (Object.keys(req.query).length === 0) {
