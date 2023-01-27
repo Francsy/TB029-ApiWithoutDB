@@ -1,6 +1,5 @@
 ## INSTRUCCIONES
 
-<br>
 
 ### En local:
 
@@ -8,7 +7,6 @@
 2. Ejecuta `npm run dev` en la consola.
 3. Utiliza los siguientes endpoints para probar la app.
 
-<br>
 
 ### Vercel:
 
@@ -20,10 +18,7 @@
 
 ## ENDPOINTS:
 
-<br>
 
-
-<br>
 
 ### `/users (GET)`
 
