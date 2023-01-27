@@ -4,6 +4,7 @@ const errorManager = require('./middlewares/errorManager')
 const loadDB = require('./scripts/loadDB')
 
 if(process.env.DATA_PATH) {
+  console.log('Hola');
   loadDB()
 }
 
