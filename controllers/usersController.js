@@ -240,7 +240,7 @@ const deleteUser = (req, res, next) => {
     } else {
         let userToDelete = dataBase.find(user => user.username === username);
         if (userToDelete.deleted === false) {
-            res.status(409).json({ success: false, messaage: `El usuario ${username} no puede ser eliminado` })
+            res.status(409).json({ success: false, message: `El usuario ${username} no puede ser eliminado` })
         } else {
             let userIndex = dataBase.findIndex(user => user.username === username)
             dataBase.splice(userIndex, 1)
@@ -248,7 +248,7 @@ const deleteUser = (req, res, next) => {
                 if (err) {
                     next(err);
                 } else {
-                    res.status(200).json({ success: true, message: `Usuarion ${username} con email ${email} fue eliminado con éxito` })
+                    res.status(200).json({ success: true, message: `Usuario ${username} con email ${email} fue eliminado con éxito` })
                 }
             })
         }
