@@ -1,13 +1,18 @@
 const fs = require('fs')
 
+//Ruta a la base de datos en local:
+const path = require('path')
+const dbPath = path.join(__dirname, '..', 'db', 'users.json')
+//Ruta cambia en caso de estar en Vercel:
+if(process.env.DATA_PATH) {
+    dbPath = '/tmp/users.json'
+}
 
-// const path = require('path')
-// const dbPath = path.join(__dirname, '..', 'db', 'users.json')
 
 
 const getData = () => {
     try {
-        const result = fs.readFileSync("tmp/users.json" , 'utf8');
+        const result = fs.readFileSync(dbPath, 'utf8');
         const dataBase = JSON.parse(result);
         return dataBase;
     } catch (error) {
