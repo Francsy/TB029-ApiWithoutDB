@@ -1,8 +1,27 @@
+## INSTRUCCIONES
+
+<br>
+
+### En local:
+
+1. Instalar las dependencias del proyecto node: `npm install`
+2. Ejecuta `npm run dev` en la consola.
+3. Utiliza los siguientes endpoints para probar la app.
+
+<br>
+
+### Vercel:
+
+1. Cuando abres el servidor el proyecto carga el archivo de la FakeDB en la carpeta `/tmp` de Vercel para que se puedan modificar datos.
+
+2. [¡Sólo tienes que pinchar aquí para probar las rutas!](https://api-without-db.vercel.app/)
+
+<br>
+
 ## ENDPOINTS:
 
 <br>
 
-[¡Pincha aquí para probar las rutas!](https://api-without-db.vercel.app/) 
 
 <br>
 
