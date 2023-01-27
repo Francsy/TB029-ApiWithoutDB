@@ -4,7 +4,6 @@ const errorManager = require('./middlewares/errorManager')
 const loadDB = require('./scripts/loadDB')
 
 if(process.env.DATA_PATH) {
-  console.log('Hola');
   loadDB()
 }
 
@@ -12,7 +11,6 @@ if(process.env.DATA_PATH) {
 const usersRouter = require('./routes/usersRoutes')
 const foodsRouter = require('./routes/foodsRoutes')
 const vehiclesRouter = require('./routes/vehiclesRoutes')
-const dataRouter = require('./routes/dataWriterRoutes')
 
 const app = express();
 const PORT = 3000;
@@ -27,7 +25,7 @@ app.get('/', (req, res) => {
 app.use('/users', usersRouter)
 app.use('/foods', foodsRouter)
 app.use('/vehicles', vehiclesRouter)
-app.use('/data', dataRouter)
+
 
 
 app.use(errorManager);
