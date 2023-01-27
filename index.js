@@ -1,7 +1,11 @@
 const express = require("express");
 
 const errorManager = require('./middlewares/errorManager')
+const loadDB = require('./scripts/loadDB')
 
+if(process.env.DATA_PATH) {
+  loadDB()
+}
 
 //MÓDULOS RUTAS
 const usersRouter = require('./routes/usersRoutes')
