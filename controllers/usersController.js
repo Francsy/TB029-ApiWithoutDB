@@ -2,8 +2,13 @@ const fs = require('fs');
 const { get } = require('http');
 const { v4: uuidv4 } = require('uuid');
 
+//Ruta a la base de datos en local:
 const path = require('path')
-const dbPath = path.join(__dirname, '..', 'db', 'users.json')
+let dbPath = path.join(__dirname, '..', 'db', 'users.json')
+//Ruta cambia en caso de estar en Vercel:
+if(process.env.DATA_PATH) {
+    dbPath = process.env.DATA_PATH
+}
 
 const getData = () => {
     try {
@@ -235,12 +240,12 @@ const deleteUser = (req, res, next) => {
     let dataBase = getData();
     if (Object.keys(req.body).length === 0 || !email) {
         res.status(422).json({ success: false, message: 'Datos proporcionados incorrectos.' })
-    } else if (!dataBase.some(user => user.username === username && user.email === email)){
+    } else if (!dataBase.some(user => user.username === username && user.email === email)) {
         res.status(404).json({ success: false, message: `El usernane ${username} y/o el email ${email} no coincide con ningún usuario.` })
     } else {
         let userToDelete = dataBase.find(user => user.username === username);
-        if(userToDelete.deleted === false) {
-            res.status(409).json({ success: false, messaage: `El usuario ${username} no puede ser eliminado`})
+        if (userToDelete.deleted === false) {
+            res.status(409).json({ success: false, message: `El usuario ${username} no puede ser eliminado` })
         } else {
             let userIndex = dataBase.findIndex(user => user.username === username)
             dataBase.splice(userIndex, 1)
@@ -248,7 +253,7 @@ const deleteUser = (req, res, next) => {
                 if (err) {
                     next(err);
                 } else {
-                    res.status(200).json({ success: true, message: `Usuarion ${username} con email ${email} fue eliminado con éxito` })
+                    res.status(200).json({ success: true, message: `Usuario ${username} con email ${email} fue eliminado con éxito` })
                 }
             })
         }

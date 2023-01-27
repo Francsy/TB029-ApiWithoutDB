@@ -1,8 +1,12 @@
 const fs = require('fs')
 
-
+//Ruta a la base de datos en local:
 const path = require('path')
-const dbPath = path.join(__dirname, '..', 'db', 'users.json')
+let dbPath = path.join(__dirname, '..', 'db', 'users.json')
+//Ruta cambia en caso de estar en Vercel:
+if(process.env.DATA_PATH) {
+    dbPath = process.env.DATA_PATH
+}
 
 
 const getData = () => {
