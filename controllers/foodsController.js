@@ -4,7 +4,7 @@ const fs = require('fs')
 const path = require('path')
 let dbPath = path.join(__dirname, '..', 'db', 'users.json')
 //Ruta cambia en caso de estar en Vercel:
-if(process.env.DATA_PATH) {
+if(process.env.NODE_ENV === "production") {
     dbPath = process.env.DATA_PATH
 }
 
